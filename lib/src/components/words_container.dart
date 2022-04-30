@@ -12,12 +12,16 @@ UiFactory<WordsContainerProps> WordsContainer =
     connect<AppState, WordsContainerProps>(mapStateToProps: (state) {
   return (WordsContainer()
     ..guesses = state.guesses
-    ..maxGuess = 5);
+    ..maxGuess = 5
+    ..wordToGuess = state.wordToGuess
+    ..isFinished = state.isFinished);
 })(castUiFactory(_$WordsContainer)); // ignore: undefined_identifier
 
 mixin WordsContainerPropsMixin on UiProps {
   List<Word> guesses;
   int maxGuess;
+  String wordToGuess;
+  bool isFinished;
 }
 
 class WordsContainerProps = UiProps with WordsContainerPropsMixin;
@@ -35,12 +39,12 @@ class WordsContainerComponent
   render() {
     List<ReactElement> children = [];
     children.addAll(props.guesses.map(_renderItem).toList());
-    if (props.maxGuess - children.length > 0) {
-      children.add((WordInput()..key=props.maxGuess-children.length)());
+    if (props.maxGuess - children.length > 0 && !props.isFinished) {
+      children.add((WordInput()..key = props.maxGuess - children.length)());
     }
 
     while (children.length < props.maxGuess) {
-      children.add((WordEmpty()..key=props.maxGuess-children.length)());
+      children.add((WordEmpty()..key = props.maxGuess - children.length)());
     }
 
     DomProps container = Dom.div();

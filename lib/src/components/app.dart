@@ -6,6 +6,7 @@ import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart';
 import 'package:dart_wordle/src/store.dart';
 import 'package:dart_wordle/src/components/words_container.dart';
+import 'package:dart_wordle/src/components/app_bar.dart';
 import 'package:dart_wordle/src/models/word.dart';
 
 part 'app.over_react.g.dart';
@@ -26,6 +27,9 @@ UiFactory<WordleProps> Wordle =
     }
     ..clearCurrentGuess = (action) {
       dispatch(ClearCurrentGuessAction(action));
+    }
+    ..markGameAsFinished = () {
+      dispatch(SetGameStatusAction(true));
     });
 })(castUiFactory(_$Wordle)); // ignore: undefined_identifier
 
@@ -36,6 +40,7 @@ mixin WordlePropsMixin on UiProps {
   dynamic Function(String) updateCurrentGuess;
   dynamic Function(String, String) addNewGuess;
   dynamic clearCurrentGuess;
+  dynamic markGameAsFinished;
 }
 
 class WordleProps = UiProps with WordlePropsMixin;
@@ -44,6 +49,7 @@ class WordleComponent extends UiComponent2<WordleProps> {
   @override
   void componentDidMount() {
     document.getElementById('container').focus();
+    props.clearCurrentGuess(props.guess);
   }
 
   render() {
@@ -59,9 +65,9 @@ class WordleComponent extends UiComponent2<WordleProps> {
           window.alert('Word already guessed');
           props.clearCurrentGuess(props.guess);
         } else if (props.guess.toLowerCase() == props.wordToGuess) {
+          props.markGameAsFinished();
           props.addNewGuess(props.guess, props.wordToGuess);
           props.clearCurrentGuess(props.guess);
-          window.alert('You win!');
         } else {
           props.addNewGuess(props.guess, props.wordToGuess);
           props.clearCurrentGuess(props.guess);
@@ -77,6 +83,6 @@ class WordleComponent extends UiComponent2<WordleProps> {
     container.onKeyDown = dispatchRouter;
     container.id = 'container';
 
-    return container(WordsContainer()());
+    return container(AppBar()(), WordsContainer()());
   }
 }

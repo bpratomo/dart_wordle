@@ -3,6 +3,7 @@ import 'dart:html';
 import 'package:dart_wordle/src/local_storage.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:dart_wordle/src/models/word.dart';
+import 'package:over_react/over_react_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_dev_tools/redux_dev_tools.dart';
 import 'package:dart_wordle/src/actions.dart';
@@ -10,15 +11,20 @@ import 'package:dart_wordle/src/actions.dart';
 part 'store.g.dart';
 
 AppState initializeState() {
-  wordleAppLocalStorage =
-      WordleAppLocalStorage(AppState.fromJson(defaultAppStateJson));
+  wordleAppLocalStorage = WordleAppLocalStorage(generateEmptyState());
   return AppState.fromJson(wordleAppLocalStorage.currentStateJson);
 }
 
-DevToolsStore<AppState> getStore() => DevToolsStore<AppState>(
-      appStateReducer,
-      initialState: initializeState(),
-    );
+DevToolsStore<AppState> getStore() => DevToolsStore<AppState>(appStateReducer,
+    initialState: initializeState(),
+    middleware: [overReactReduxDevToolsMiddleware, localStorageMiddleware()]);
+
+Middleware<AppState> localStorageMiddleware() {
+  return (store, action, next) {
+    next(action);
+    wordleAppLocalStorage.saveStateToLocal(store.state);
+  };
+}
 
 @JsonSerializable(explicitToJson: true)
 class AppState {
@@ -26,8 +32,10 @@ class AppState {
   List<Word> guesses;
   String guess;
   List<String> validWords;
+  bool isFinished;
 
-  AppState(this.wordToGuess, this.guesses, this.guess, this.validWords);
+  AppState(this.wordToGuess, this.guesses, this.guess, this.validWords,
+      this.isFinished);
 
   factory AppState.fromJson(Map<String, dynamic> json) =>
       _$AppStateFromJson(json);
@@ -35,11 +43,17 @@ class AppState {
 }
 
 AppState appStateReducer(AppState state, dynamic action) {
+  if (action is ResetGameAction) {
+    var emptyState = generateEmptyState();
+    wordleAppLocalStorage = WordleAppLocalStorage(emptyState);
+    return emptyState;
+  }
   return AppState(
       wordToGuessReducer(state.wordToGuess, action),
       guessesReducer(state.guesses, action),
       guessReducer(state.guess, action),
-      validWordsReducer(state.validWords, action));
+      validWordsReducer(state.validWords, action),
+      isFinishedReducer(state.isFinished, action));
 }
 
 final wordToGuessReducer = combineReducers<String>([
@@ -67,13 +81,15 @@ final guessReducer = combineReducers<String>([
       return guess;
     }
   }),
-  TypedReducer<String,ClearCurrentGuessAction>((guess,action){
+  TypedReducer<String, ClearCurrentGuessAction>((guess, action) {
     return '';
   })
-  
-  
-  
-  
+]);
+
+final isFinishedReducer = combineReducers<bool>([
+  TypedReducer<bool, SetGameStatusAction>((isFinished, action) {
+    return action.value;
+  })
 ]);
 
 final validWordsReducer = combineReducers<List<String>>([

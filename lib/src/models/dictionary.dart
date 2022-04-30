@@ -1,8 +1,11 @@
 import 'dart:math';
 
 var r = Random();
-int wordToGuessIndex = r.nextInt(wordleWords.length);
-String wordToGuess = wordleWords[wordToGuessIndex];
+String generateRandomWord() {
+  int wordToGuessIndex = r.nextInt(wordleWords.length);
+  String wordToGuess = wordleWords[wordToGuessIndex];
+  return wordToGuess;
+}
 
 bool isWordValid(String rawWord) {
   String word = rawWord.toLowerCase();

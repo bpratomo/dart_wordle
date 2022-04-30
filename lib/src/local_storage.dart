@@ -9,7 +9,7 @@ import 'dart:collection';
 class Keys {
   static String localStorageKey = 'WordleState';
   static String defaultState = 'defaultState';
-  static String currentState = 'currentState';
+  //static String currentState = 'currentState';
   static String emptyState = 'emptyState';
 }
 
@@ -18,11 +18,11 @@ WordleAppLocalStorage wordleAppLocalStorage;
 class WordleAppLocalStorage {
   WordleAppLocalStorage([AppState initialState]) {
     if (isInitialized()) return;
-    window.localStorage[Keys.localStorageKey] = json.encode({
-      Keys.defaultState: initialState?.toJson(),
-      Keys.currentState: initialState?.toJson(),
-      //Keys.emptyState: emptyState.toJson(),
-    });
+    window.localStorage[Keys.localStorageKey] =
+        json.encode(initialState.toJson());
+  }
+  void saveStateToLocal(AppState state) {
+    window.localStorage[Keys.localStorageKey] = json.encode(state.toJson());
   }
 
   bool isInitialized() =>
@@ -33,12 +33,14 @@ class WordleAppLocalStorage {
   operator [](Object key) {
     return _proxiedMap[key];
   }
-  Map<String, dynamic> get _proxiedMap => json.decode(window.localStorage[Keys.localStorageKey]);
 
-  Map<String, dynamic> get currentStateJson => this[Keys.currentState];
+  Map<String, dynamic> get _proxiedMap =>
+      json.decode(window.localStorage[Keys.localStorageKey]);
 
-  static AppState get defaultState =>
-      AppState(wordToGuess, <Word>[Word('Crane', wordToGuess),Word('Fleet', wordToGuess)], null, wordleWords);
+  Map<String, dynamic> get currentStateJson =>
+      json.decode(window.localStorage[Keys.localStorageKey]);
 }
 
-var defaultAppStateJson = WordleAppLocalStorage.defaultState.toJson();
+AppState generateEmptyState() {
+  return AppState(generateRandomWord(), <Word>[], null, wordleWords, false);
+}

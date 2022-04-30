@@ -15,6 +15,7 @@ AppState _$AppStateFromJson(Map<String, dynamic> json) {
         ?.toList(),
     json['guess'] as String,
     (json['validWords'] as List)?.map((e) => e as String)?.toList(),
+    json['isFinished'] as bool,
   );
 }
 
@@ -23,4 +24,5 @@ Map<String, dynamic> _$AppStateToJson(AppState instance) => <String, dynamic>{
       'guesses': instance.guesses?.map((e) => e?.toJson())?.toList(),
       'guess': instance.guess,
       'validWords': instance.validWords,
+      'isFinished': instance.isFinished,
     };

@@ -16,24 +16,29 @@ class _Action<T> {
 
 @JsonSerializable()
 class AddNewGuessAction extends _Action<Word> {
-  AddNewGuessAction(Word value): super(value);
+  AddNewGuessAction(Word value) : super(value);
 }
 
 class UpdateCurrentGuessAction extends _Action<String> {
-  UpdateCurrentGuessAction(String value): super(value);
+  UpdateCurrentGuessAction(String value) : super(value);
 }
 
 class ClearCurrentGuessAction extends _Action<String> {
-  ClearCurrentGuessAction(String value): super(value);
+  ClearCurrentGuessAction(String value) : super(value);
 }
 
-
-class SetWordToGuessAction extends _Action<String>{
-  SetWordToGuessAction(String value): super(value);
+class SetWordToGuessAction extends _Action<String> {
+  SetWordToGuessAction(String value) : super(value);
 }
 
-class SetValidWordsAction extends _Action<List<String>>{
-  SetValidWordsAction(List<String> value): super(value);
+class SetValidWordsAction extends _Action<List<String>> {
+  SetValidWordsAction(List<String> value) : super(value);
 }
 
+class SetGameStatusAction extends _Action<bool> {
+  SetGameStatusAction(bool value) : super(value);
+}
 
+class ResetGameAction extends _Action<bool> {
+  ResetGameAction(bool value) : super(value);
+}
