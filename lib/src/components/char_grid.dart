@@ -25,7 +25,7 @@ class CharGridComponent extends UiComponent2<CharGridProps> {
     } else if (props.empty == true) {
       baseClass += 'bg-slate-300';
     } else if (props.result == ResultEnum.Correct) {
-      baseClass = baseClass + 'bg-green-300 text-white';
+      baseClass = baseClass + 'bg-green-900 text-white';
     } else if (props.result == ResultEnum.Missed) {
       baseClass = baseClass + 'bg-yellow-400 text-white';
     } else {
