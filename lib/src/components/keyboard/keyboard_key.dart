@@ -14,7 +14,8 @@ UiFactory<KeyboardKeyProps> KeyboardKey = connect<AppState, KeyboardKeyProps>(
     return (KeyboardKey()
       ..wordToGuess = state.wordToGuess
       ..guess = state.guess
-      ..guesses = state.guesses);
+      ..guesses = state.guesses
+      ..isFinished = state.isFinished);
   },
   mapDispatchToProps: (dispatch) => (KeyboardKey()
     ..updateCurrentGuess = (key) {
@@ -40,6 +41,7 @@ mixin KeyboardKeyProps on UiProps {
   String guess;
   String wordToGuess;
   List<Word> guesses;
+  bool isFinished;
 }
 
 class KeyboardKeyComponent extends UiComponent2<KeyboardKeyProps> {
@@ -50,6 +52,9 @@ class KeyboardKeyComponent extends UiComponent2<KeyboardKeyProps> {
   render() {
     dynamic Function(SyntheticMouseEvent) dispatchRouter =
         (SyntheticMouseEvent e) {
+      if (props.isFinished) {
+        return;
+      }
       if (props.char == 'Enter') {
         if (props.guess.length < 5) {
           window.alert('Only word with 5 character allowed');
@@ -75,7 +80,7 @@ class KeyboardKeyComponent extends UiComponent2<KeyboardKeyProps> {
     };
     DomProps container = Dom.div();
     container.className =
-        'flex flex-col justify-center align-center p-2 border border-slate-100';
+        'flex flex-col justify-center align-center p-2 border border-slate-100 h-full lg:w-18 md:w-14 sm:w-8 lg:text-3xl md:text-2xl sm:text-xl min-w-fit';
 
     dynamic getStatusCount = (Word word, String char, String resultToCheck) {
       List<int> correctIndices = ({...word.result}
@@ -126,6 +131,7 @@ class KeyboardKeyComponent extends UiComponent2<KeyboardKeyProps> {
     container.onClick = dispatchRouter;
 
     DomProps letter = Dom.div();
+    letter.className = 'text-center';
     if (props.char == 'Enter') {
       container.className += ' mr-2';
     } else if (props.char == 'Backspace') {

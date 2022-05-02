@@ -18,7 +18,8 @@ UiFactory<WordleProps> Wordle =
   return (Wordle()
     ..wordToGuess = state.wordToGuess
     ..guess = state.guess
-    ..guesses = state.guesses);
+    ..guesses = state.guesses
+    ..isFinished = state.isFinished);
 }, mapDispatchToProps: (dispatch) {
   return (Wordle()
     ..updateCurrentGuess = (key) {
@@ -43,6 +44,7 @@ mixin WordlePropsMixin on UiProps {
   dynamic Function(String, String) addNewGuess;
   dynamic clearCurrentGuess;
   dynamic markGameAsFinished;
+  bool isFinished;
 }
 
 class WordleProps = UiProps with WordlePropsMixin;
@@ -57,6 +59,10 @@ class WordleComponent extends UiComponent2<WordleProps> {
   render() {
     dynamic Function(SyntheticKeyboardEvent) dispatchRouter =
         (SyntheticKeyboardEvent e) {
+      if (props.isFinished) {
+        return;
+      }
+
       if (e.key == 'Enter') {
         if (props.guess.length < 5) {
           window.alert('Only word with 5 character allowed');
@@ -70,7 +76,8 @@ class WordleComponent extends UiComponent2<WordleProps> {
           props.markGameAsFinished();
           props.addNewGuess(props.guess, props.wordToGuess);
           props.clearCurrentGuess(props.guess);
-        } else if (props.guesses.length == 4) {
+        } else if (props.guesses.length == 5) {
+          props.addNewGuess(props.guess, props.wordToGuess);
           props.markGameAsFinished();
         } else {
           props.addNewGuess(props.guess, props.wordToGuess);

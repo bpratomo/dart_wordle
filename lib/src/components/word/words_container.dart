@@ -12,7 +12,7 @@ UiFactory<WordsContainerProps> WordsContainer =
     connect<AppState, WordsContainerProps>(mapStateToProps: (state) {
   return (WordsContainer()
     ..guesses = state.guesses
-    ..maxGuess = 5
+    ..maxGuess = 6
     ..wordToGuess = state.wordToGuess
     ..isFinished = state.isFinished);
 })(castUiFactory(_$WordsContainer)); // ignore: undefined_identifier
@@ -48,7 +48,8 @@ class WordsContainerComponent
     }
 
     DomProps container = Dom.div();
-    container.className = 'w-4/5 mt-5 m-auto text-4xl flex flex-col max-w-2xl';
+    container.className =
+        'w-4/5 h-1/2 mt-5 m-auto text-4xl flex flex-col max-w-2xl';
 
     return (container(children));
   }
