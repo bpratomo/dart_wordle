@@ -1,6 +1,6 @@
-import 'package:dart_wordle/src/components/word_empty.dart';
-import 'package:dart_wordle/src/components/word_grids.dart';
-import 'package:dart_wordle/src/components/word_input.dart';
+import 'package:dart_wordle/src/components/word/word_empty.dart';
+import 'package:dart_wordle/src/components/word/word_grids.dart';
+import 'package:dart_wordle/src/components/word/word_input.dart';
 import 'package:dart_wordle/src/models/word.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart';

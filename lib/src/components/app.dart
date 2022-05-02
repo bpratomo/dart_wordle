@@ -1,12 +1,13 @@
 import 'dart:html';
 
 import 'package:dart_wordle/src/actions.dart';
+import 'package:dart_wordle/src/components/keyboard/keyboard_container.dart';
 import 'package:dart_wordle/src/components/result_dialog.dart';
 import 'package:dart_wordle/src/models/dictionary.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart';
 import 'package:dart_wordle/src/store.dart';
-import 'package:dart_wordle/src/components/words_container.dart';
+import 'package:dart_wordle/src/components/word/words_container.dart';
 import 'package:dart_wordle/src/components/app_bar.dart';
 import 'package:dart_wordle/src/models/word.dart';
 
@@ -86,6 +87,7 @@ class WordleComponent extends UiComponent2<WordleProps> {
     container.onKeyDown = dispatchRouter;
     container.id = 'container';
 
-    return container(AppBar()(), WordsContainer()(), ResultDialog()());
+    return container(AppBar()(), WordsContainer()(), ResultDialog()(),
+        KeyboardContainer()());
   }
 }

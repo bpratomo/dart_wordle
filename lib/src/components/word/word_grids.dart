@@ -1,5 +1,5 @@
 import 'package:dart_wordle/src/models/word.dart';
-import 'package:dart_wordle/src/components/char_grid.dart';
+import 'package:dart_wordle/src/components/word/char_grid.dart';
 import 'package:dart_wordle/src/store.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart';
@@ -39,7 +39,6 @@ class WordGridsComponent
       childrenEl,
     );
   }
-  
 
   ReactElement _renderItem(String char, String result) {
     return (CharGrid()

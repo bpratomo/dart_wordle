@@ -1,5 +1,5 @@
 import 'package:dart_wordle/src/models/word.dart';
-import 'package:dart_wordle/src/components/char_grid.dart';
+import 'package:dart_wordle/src/components/word/char_grid.dart';
 import 'package:dart_wordle/src/store.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart';
@@ -12,8 +12,7 @@ var uuid = Uuid();
 UiFactory<WordEmptyProps> WordEmpty =
     castUiFactory(_$WordEmpty); // ignore: undefined_identifier
 
-mixin WordEmptyPropsMixin on UiProps {
-}
+mixin WordEmptyPropsMixin on UiProps {}
 
 class WordEmptyProps = UiProps with WordEmptyPropsMixin;
 
@@ -37,7 +36,6 @@ class WordEmptyComponent
       childrenEl,
     );
   }
-  
 
   ReactElement _renderItem(String char) {
     return (CharGrid()
