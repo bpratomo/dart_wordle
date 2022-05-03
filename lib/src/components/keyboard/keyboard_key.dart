@@ -80,7 +80,7 @@ class KeyboardKeyComponent extends UiComponent2<KeyboardKeyProps> {
     };
     DomProps container = Dom.div();
     container.className =
-        'flex flex-col justify-center align-center p-2 border border-slate-100 w-full ';
+        'flex flex-col justify-center align-center p-2 border border-slate-300 w-full m-1 ';
 
     dynamic getStatusCount = (Word word, String char, String resultToCheck) {
       List<int> correctIndices = ({...word.result}
@@ -120,13 +120,13 @@ class KeyboardKeyComponent extends UiComponent2<KeyboardKeyProps> {
     ;
 
     if (successCount > 0) {
-      container.className += ' bg-green-900 text-white ';
+      container.className += ' bg-green-900 active:bg-green-300 text-white ';
     } else if (missedCount > 0) {
-      container.className += ' bg-yellow-400 text-white ';
+      container.className += ' bg-yellow-400 active:bg-yellow-200 text-white ';
     } else if (notFoundCount > 0) {
-      container.className += ' bg-slate-800 text-white';
+      container.className += ' bg-slate-800 active:bg-slate-300 text-white';
     } else {
-      container.className += ' bg-white text-black';
+      container.className += ' bg-white active:bg-slate-100 text-black';
     }
     container.onClick = dispatchRouter;
 

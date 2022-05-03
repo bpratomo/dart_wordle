@@ -18,7 +18,7 @@ class KeyboardContainerComponent extends UiComponent2<KeyboardContainerProps> {
   render() {
     DomProps container = Dom.div();
     container.className =
-        'fixed h-1/4 w-full bg-slate-800 inset-x-0 bottom-0 flex flex-col justify-center align-center px-[5%] py-[3%] ';
+        'fixed h-1/4 w-full bg-slate-800 inset-x-0 bottom-0 flex flex-col justify-center align-center px-[1%] py-[1%] ';
     dynamic topRow = KeyboardRow()..chars = 'QWERTYUIOP'.split('');
     dynamic middleRow = KeyboardRow()..chars = 'ASDFGHJKL'.split('');
     dynamic bottomRow = KeyboardRow()
