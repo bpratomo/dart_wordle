@@ -89,7 +89,8 @@ class WordleComponent extends UiComponent2<WordleProps> {
     };
 
     DomProps container = Dom.div();
-    container.className = 'bg-slate-300 h-full w-full top-0 left-0 absolute ';
+    container.className =
+        'bg-slate-300 h-full w-full sticky top-0 left-0 min-h-max touch-manipulation ';
     container.tabIndex = 0;
     container.onKeyDown = dispatchRouter;
     container.id = 'container';

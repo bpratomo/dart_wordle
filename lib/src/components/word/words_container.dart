@@ -49,7 +49,7 @@ class WordsContainerComponent
 
     DomProps container = Dom.div();
     container.className =
-        'w-4/5 h-1/2 mt-5 m-auto text-4xl flex flex-col max-w-2xl';
+        'w-5/6 h-1/2 mt-5 m-auto text-4xl flex flex-col max-w-3xl';
 
     return (container(children));
   }

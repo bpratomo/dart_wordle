@@ -30,7 +30,7 @@ class WordEmptyComponent
     }
 
     DomProps dom1 = Dom.div();
-    dom1.className = 'flex flex-nowrap justify-center';
+    dom1.className = 'flex flex-nowrap justify-evenly';
 
     return dom1(
       childrenEl,

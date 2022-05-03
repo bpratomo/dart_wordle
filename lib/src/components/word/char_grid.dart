@@ -17,9 +17,9 @@ class CharGridProps = UiProps with CharGridPropsMixin;
 
 class CharGridComponent extends UiComponent2<CharGridProps> {
   render() {
-    DomProps dom1 = Dom.span();
+    DomProps dom1 = Dom.div();
     String baseClass =
-        'm-0.5 border-2 border-white lg:w-24 lg:h-24 md:w-20 md:h-20 sm:w-16 sm:h-16 w-12 h-12 text-center align-middle flex justify-center flex-col ';
+        'm-0.5 border-2 border-white w-[100%] pt-[16%] max-h-12 relative ';
     if (props.isBeingWritten == true) {
       baseClass += 'bg-white text-black';
     } else if (props.empty == true) {
@@ -35,6 +35,8 @@ class CharGridComponent extends UiComponent2<CharGridProps> {
     dom1.className = baseClass;
 
     DomProps charDiv = Dom.div();
+    charDiv.className =
+        'absolute inset-0 flex flex-col justify-center align-center text-center ';
     return (dom1(charDiv(props.char)));
   }
 }

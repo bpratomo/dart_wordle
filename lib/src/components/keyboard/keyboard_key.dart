@@ -80,7 +80,7 @@ class KeyboardKeyComponent extends UiComponent2<KeyboardKeyProps> {
     };
     DomProps container = Dom.div();
     container.className =
-        'flex flex-col justify-center align-center p-2 border border-slate-100 h-full lg:w-18 md:w-14 sm:w-8 lg:text-3xl md:text-2xl sm:text-xl min-w-fit';
+        'flex flex-col justify-center align-center p-2 border border-slate-100 w-full ';
 
     dynamic getStatusCount = (Word word, String char, String resultToCheck) {
       List<int> correctIndices = ({...word.result}

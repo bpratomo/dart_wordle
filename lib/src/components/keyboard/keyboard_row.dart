@@ -29,7 +29,7 @@ class KeyboardRowComponent
     List<ReactElement> children =
         props.chars.map((e) => _renderItem(e)).toList();
     DomProps container = Dom.div();
-    container.className = 'flex flex-row justify-center text-lg p-0.5 h-1/3';
+    container.className = 'flex flex-row justify-evenly text-3xl m-px h-1/3';
     return container(children);
   }
 }
