@@ -59,7 +59,7 @@ class KeyboardKeyComponent extends UiComponent2<KeyboardKeyProps> {
         if (props.guess.length < 5) {
           window.alert('Only word with 5 character allowed');
         } else if (!isWordValid(props.guess)) {
-          window.alert('Not a valid word');
+          window.alert('Not in word list');
           props.clearCurrentGuess(props.guess);
         } else if (props.guesses.map((e) => e.word).contains(props.guess)) {
           window.alert('Word already guessed');
