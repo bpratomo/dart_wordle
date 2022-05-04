@@ -68,8 +68,9 @@ class KeyboardKeyComponent extends UiComponent2<KeyboardKeyProps> {
           props.markGameAsFinished();
           props.addNewGuess(props.guess, props.wordToGuess);
           props.clearCurrentGuess(props.guess);
-        } else if (props.guesses.length == 4) {
+        } else if (props.guesses.length == 5) {
           props.markGameAsFinished();
+          props.addNewGuess(props.guess, props.wordToGuess);
         } else {
           props.addNewGuess(props.guess, props.wordToGuess);
           props.clearCurrentGuess(props.guess);
